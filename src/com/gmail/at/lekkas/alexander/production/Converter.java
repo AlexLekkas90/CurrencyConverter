@@ -5,21 +5,28 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class Converter {
-	private final static String URL = "http://api.fixer.io/latest?symbols=";
+	private String URL = "http://api.fixer.io/latest?symbols=";
 
-	public static double convert(Currency startCurrency, Currency endCurrency, double ammount) {
+	public double convert(Currency startCurrency, Currency endCurrency, double ammount) {
 		updateRates(startCurrency, endCurrency);//TODO move to Currency or new class?
 		return calculateResult(startCurrency, endCurrency, ammount);
 	}
+	
+	public void setURL(String url){
+		URL = url;
+	}
+	
+	public String getURL(){
+		return URL;
+	}
 
-
-	private static void updateRates(Currency startCurrency, Currency endCurrency) {
+	private void updateRates(Currency startCurrency, Currency endCurrency) {
 		JSONObject fetchedRates = fetchSpecifiedCurrencies(startCurrency, endCurrency);
 		startCurrency.setRate((Double) fetchedRates.get(startCurrency.getName()));
 		endCurrency.setRate((Double) fetchedRates.get(endCurrency.getName()));
 	}
 
-	private static JSONObject fetchSpecifiedCurrencies(Currency currency1, Currency currency2){
+	private JSONObject fetchSpecifiedCurrencies(Currency currency1, Currency currency2){
 		JSONParser jsonParser = new JSONParser();
 		JSONObject json = null;
 		try {
@@ -30,7 +37,7 @@ public class Converter {
 		return (JSONObject) json.get("rates");
 	}
 	
-	private static double calculateResult(Currency startCurrency, Currency endCurrency, double ammount) {
+	private double calculateResult(Currency startCurrency, Currency endCurrency, double ammount) {
 		if(new Double(startCurrency.getRate()).equals(0.0)){return -0.1;}
 		double startCurrencyInEuro = ammount / startCurrency.getRate();
 		return startCurrencyInEuro * endCurrency.getRate();
