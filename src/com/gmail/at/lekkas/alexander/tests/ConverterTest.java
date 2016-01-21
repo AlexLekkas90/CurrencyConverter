@@ -24,6 +24,27 @@ public class ConverterTest {
 	}
 	
 	@Test
+	public void converter_should_convert_from_EUR_to_EUR() throws InvalidUserInputException{
+		Converter converter = new Converter();
+		converter.setURL("https://raw.githubusercontent.com/AlexLekkas90/CurrencyConverter/master/test%20resources/TestRates.json");
+		assertEquals("Converter converts 100 EUR to 100 EUR without throwing an exception, EUR is an edge case", 0, Double.compare(100.0, converter.convert("eur", "EUR", 100.0)));
+	}
+	
+	@Test
+	public void converter_should_convert_from_EUR_to_USD() throws InvalidUserInputException{
+		Converter converter = new Converter();
+		converter.setURL("https://raw.githubusercontent.com/AlexLekkas90/CurrencyConverter/master/test%20resources/TestRates.json");
+		assertEquals("Converter converts 100 EUR to 100 USD without throwing an exception, EUR is an edge case", 0, Double.compare(100.0, converter.convert("EUR", "USD", 100.0)));
+	}
+	
+	@Test
+	public void converter_should_convert_from_USD_to_EUR() throws InvalidUserInputException{
+		Converter converter = new Converter();
+		converter.setURL("https://raw.githubusercontent.com/AlexLekkas90/CurrencyConverter/master/test%20resources/TestRates.json");
+		assertEquals("Converter converts 100 USD to 100 EUR without throwing an exception, EUR is an edge case", 0, Double.compare(100.0, converter.convert("USD", "EUR", 100.0)));
+	}
+	
+	@Test
 	public void should_convert_valid_lower_and_upper_case_currencies() throws InvalidUserInputException{
 		Converter converter = new Converter();
 		converter.setURL("https://raw.githubusercontent.com/AlexLekkas90/CurrencyConverter/master/test%20resources/TestRates.json");

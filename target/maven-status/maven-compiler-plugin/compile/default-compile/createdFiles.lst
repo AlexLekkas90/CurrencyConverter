@@ -1,0 +1,5 @@
+com\gmail\at\lekkas\alexander\production\InvalidUserInputException.class
+com\gmail\at\lekkas\alexander\tests\ConverterTest.class
+com\gmail\at\lekkas\alexander\production\URLReader.class
+com\gmail\at\lekkas\alexander\production\Converter.class
+com\gmail\at\lekkas\alexander\production\Main.class
